@@ -16,11 +16,13 @@ class SiteDetailViewController: UIViewController {
     }()
     
     var site: Site?
-    var chargers: ChargersResponse?
+    var chargersResponse: ChargersResponse?
     var siteID : String?
+    var chargerEntities : [ChargerEntity]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
         tableView.dataSource = self
         setTableContraints()
         fetchChargers()
@@ -35,6 +37,7 @@ class SiteDetailViewController: UIViewController {
         tableView.leadingAnchor.constraint(equalTo : self.view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo : self.view.trailingAnchor).isActive = true
     }
+
     
     private func fetchChargers() {
         guard let chargersURL = URL(string: "https://sammycalle.github.io/mockFileEP/chargers.json") else { return }
@@ -44,9 +47,9 @@ class SiteDetailViewController: UIViewController {
             case .success(let fetchedChargers):
                 if let siteID = self?.siteID {
                     let filteredChargers = fetchedChargers.chargers.filter { $0.siteID == siteID }
-                    self?.chargers = ChargersResponse(chargers: filteredChargers)
+                    self?.chargersResponse = ChargersResponse(chargers: filteredChargers)
                 } else {
-                    self?.chargers = fetchedChargers
+                    self?.chargersResponse = fetchedChargers
                 }
                 
                 DispatchQueue.main.async {
@@ -62,17 +65,25 @@ class SiteDetailViewController: UIViewController {
 
 extension SiteDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chargers?.chargers.count ?? 0
+        return chargersResponse?.chargers.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChargerCell", for: indexPath)
-        if let charger = chargers?.chargers[indexPath.row] {
-            
+        if let charger = chargersResponse?.chargers[indexPath.row] {
             cell.textLabel?.text = charger.id
-            
         }
         
         return cell
+    }
+}
+
+extension SiteDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let charger = chargersResponse?.chargers[indexPath.row] {
+            let chargerDetailVC = ChargerDetailViewController()
+            chargerDetailVC.connectors = charger.connectors
+            navigationController?.pushViewController(chargerDetailVC, animated: true)
+        }
     }
 }

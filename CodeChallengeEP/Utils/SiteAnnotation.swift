@@ -6,3 +6,8 @@
 //
 
 import Foundation
+import MapKit
+
+class SiteAnnotation: MKPointAnnotation {
+    var siteID: String?
+}

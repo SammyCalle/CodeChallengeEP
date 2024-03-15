@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct SitesEntity {
+struct SiteEntity {
     
+    let siteID : String
     let name : String
     let details : String
     let lat : Double

@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+struct SiteDomain {
+    
+    let id : Int
+    let siteID : String
+    let name : String
+    let details : String
+    let lat : Double
+    let lon : Double
+
+}

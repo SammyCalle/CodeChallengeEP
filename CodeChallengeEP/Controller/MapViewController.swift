@@ -16,16 +16,28 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return map
     }()
     
-    var sites: SitesResponse?
+    var sitesList: [SiteDomain]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
         setMapContraints()
-        fetchSites()
+        validateDataBase()
+        
     }
     
-    func setMapContraints() {
+    private func validateDataBase(){
+        if DatabaseManager.isSitesTableEmpty() {
+            self.sitesList = DatabaseManager.getAllSites()
+            DispatchQueue.main.async {
+                self.addAnnotationsToMap()
+            }
+        }else {
+            fetchSites()
+        }
+    }
+    
+    private func setMapContraints() {
         view.addSubview(mapView)
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -41,61 +53,60 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         NetworkManager.shared.fetchData(from: sitesURL) { [weak self] (result: Result<SitesResponse, Error>) in
             switch result {
             case .success(let fetchedSites):
-                self?.sites = fetchedSites
-                DispatchQueue.main.async {
-                    self?.addAnnotationsToMap()
-                }
+                let siteEntity = EntityMappers.mapSites(sitesResponse: fetchedSites)
+                DatabaseManager.saveSitesToDatabase(sites: siteEntity)
+                self?.validateDataBase()
             case .failure(let error):
                 print("Failed to fetch sites: \(error)")
             }
         }
     }
+
+private func addAnnotationsToMap() {
     
-    private func addAnnotationsToMap() {
-        
-        if let unwrappedSites = sites?.sites {
-            print("Found \(unwrappedSites.count) sites")
-            for site in unwrappedSites {
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = CLLocationCoordinate2D(latitude: site.location.lat, longitude: site.location.lon)
-                annotation.title = site.name
-                annotation.subtitle = site.id
-                mapView.addAnnotation(annotation)
-            }
-        } else {
-            print("No sites data available")
+    if let unwrappedSites = sitesList {
+        for site in unwrappedSites {
+            let annotation = SiteAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: site.lat, longitude: site.lon)
+            annotation.title = site.name
+            annotation.subtitle = site.details
+            annotation.siteID = site.siteID
+            mapView.addAnnotation(annotation)
         }
+    } else {
+        print("No sites data available")
+    }
+}
+
+
+func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    guard annotation is MKPointAnnotation else {
+        return nil
     }
     
+    let identifier = "SiteAnnotation"
+    var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard annotation is MKPointAnnotation else {
-            return nil
-        }
-        
-        let identifier = "SiteAnnotation"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-        
-        if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView?.canShowCallout = true
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        } else {
-            annotationView?.annotation = annotation
-        }
-        
-        return annotationView
+    if annotationView == nil {
+        annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+        annotationView?.canShowCallout = true
+        annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+    } else {
+        annotationView?.annotation = annotation
     }
     
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        guard let annotation = view.annotation as? MKPointAnnotation else { return }
-        
-        if let siteId = annotation.subtitle {
-            let detailVC = SiteDetailViewController()
-            detailVC.siteID = siteId
-            navigationController?.pushViewController(detailVC, animated: true)
-        }
+    return annotationView
+}
+
+func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    guard let annotation = view.annotation as? SiteAnnotation else { return }
+    
+    if let siteId = annotation.siteID {
+        let detailVC = SiteDetailViewController()
+        detailVC.siteID = siteId
+        navigationController?.pushViewController(detailVC, animated: true)
     }
+}
 }
 
 

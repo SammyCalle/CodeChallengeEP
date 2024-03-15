@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct EvsesEntity {
+    
+    let id : Int
+    let chargerID : Int
+    let code : String
+}

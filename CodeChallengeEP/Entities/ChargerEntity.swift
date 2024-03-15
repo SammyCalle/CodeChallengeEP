@@ -7,9 +7,10 @@
 
 import Foundation
 
-struct ChargersEntity {
+struct ChargerEntity {
     
-    let sideID : Int
+    let siteID : Int
+    let chargerID : String
     let name : String
     
 }

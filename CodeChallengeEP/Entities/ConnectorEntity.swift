@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+struct ConnectorEntity {
+    
+    let id : Int
+    let evseID : Int
+    let status : Int
+    let power : Int
+    
+}
