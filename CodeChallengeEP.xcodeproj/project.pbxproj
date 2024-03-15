@@ -21,6 +21,7 @@
 		A58DD1842BA3B88E000C71A7 /* SaveChargers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58DD1832BA3B88E000C71A7 /* SaveChargers.swift */; };
 		A58DD1862BA3BBFB000C71A7 /* SaveEvses.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58DD1852BA3BBFB000C71A7 /* SaveEvses.swift */; };
 		A58DD1882BA3C1B4000C71A7 /* SaveConnectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58DD1872BA3C1B4000C71A7 /* SaveConnectors.swift */; };
+		A58DD18C2BA4863D000C71A7 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58DD18B2BA4863D000C71A7 /* NetworkManager.swift */; };
 		A5CFE6A72B9C89C400073B82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CFE6A62B9C89C400073B82 /* AppDelegate.swift */; };
 		A5CFE6A92B9C89C400073B82 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CFE6A82B9C89C400073B82 /* SceneDelegate.swift */; };
 		A5CFE6B02B9C89C500073B82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5CFE6AF2B9C89C500073B82 /* Assets.xcassets */; };
@@ -32,7 +33,6 @@
 		A5CFE6C62B9CAEE600073B82 /* Evse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CFE6C52B9CAEE600073B82 /* Evse.swift */; };
 		A5CFE6C82B9CB07900073B82 /* Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CFE6C72B9CB07900073B82 /* Connector.swift */; };
 		A5CFE6CC2B9CC8DE00073B82 /* SiteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CFE6CB2B9CC8DE00073B82 /* SiteDetailViewController.swift */; };
-		A5CFE6CE2B9F84E500073B82 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CFE6CD2B9F84E500073B82 /* NetworkManager.swift */; };
 		A5CFE6D02B9F878300073B82 /* SitesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CFE6CF2B9F878300073B82 /* SitesResponse.swift */; };
 		A5CFE6D52B9F9D6100073B82 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5CFE6D42B9F9D6100073B82 /* MapKit.framework */; };
 		A5CFE6F72B9FBD2A00073B82 /* ChargersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CFE6F62B9FBD2A00073B82 /* ChargersResponse.swift */; };
@@ -54,6 +54,7 @@
 		A58DD1832BA3B88E000C71A7 /* SaveChargers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveChargers.swift; sourceTree = "<group>"; };
 		A58DD1852BA3BBFB000C71A7 /* SaveEvses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveEvses.swift; sourceTree = "<group>"; };
 		A58DD1872BA3C1B4000C71A7 /* SaveConnectors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveConnectors.swift; sourceTree = "<group>"; };
+		A58DD18B2BA4863D000C71A7 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A5CFE6A32B9C89C400073B82 /* CodeChallengeEP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeChallengeEP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5CFE6A62B9C89C400073B82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5CFE6A82B9C89C400073B82 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,7 +68,6 @@
 		A5CFE6C52B9CAEE600073B82 /* Evse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evse.swift; sourceTree = "<group>"; };
 		A5CFE6C72B9CB07900073B82 /* Connector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connector.swift; sourceTree = "<group>"; };
 		A5CFE6CB2B9CC8DE00073B82 /* SiteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteDetailViewController.swift; sourceTree = "<group>"; };
-		A5CFE6CD2B9F84E500073B82 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = ../../../../../.Trash/NetworkManager.swift; sourceTree = "<group>"; };
 		A5CFE6CF2B9F878300073B82 /* SitesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitesResponse.swift; sourceTree = "<group>"; };
 		A5CFE6D42B9F9D6100073B82 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A5CFE6F62B9FBD2A00073B82 /* ChargersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargersResponse.swift; sourceTree = "<group>"; };
@@ -151,6 +151,14 @@
 			path = DataQueries;
 			sourceTree = "<group>";
 		};
+		A58DD18A2BA4862C000C71A7 /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				A58DD18B2BA4863D000C71A7 /* NetworkManager.swift */,
+			);
+			name = Remote;
+			sourceTree = "<group>";
+		};
 		A5CFE69A2B9C89C400073B82 = {
 			isa = PBXGroup;
 			children = (
@@ -171,13 +179,13 @@
 		A5CFE6A52B9C89C400073B82 /* CodeChallengeEP */ = {
 			isa = PBXGroup;
 			children = (
+				A58DD18A2BA4862C000C71A7 /* Remote */,
 				A58DD17D2BA3B155000C71A7 /* Utils */,
 				A58DD1762BA35745000C71A7 /* Domains */,
 				A58DD1712BA351C0000C71A7 /* Mappers */,
 				A58DD1662BA33CA2000C71A7 /* Entities */,
 				A58DD1632BA2F62C000C71A7 /* Cache */,
 				A5CFE6CA2B9CC89B00073B82 /* Controller */,
-				A5CFE6C92B9CC4D800073B82 /* Remote */,
 				A5CFE6C22B9CAC8900073B82 /* Models */,
 				A5CFE6A62B9C89C400073B82 /* AppDelegate.swift */,
 				A5CFE6A82B9C89C400073B82 /* SceneDelegate.swift */,
@@ -200,14 +208,6 @@
 				A5CFE6F62B9FBD2A00073B82 /* ChargersResponse.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		A5CFE6C92B9CC4D800073B82 /* Remote */ = {
-			isa = PBXGroup;
-			children = (
-				A5CFE6CD2B9F84E500073B82 /* NetworkManager.swift */,
-			);
-			path = Remote;
 			sourceTree = "<group>";
 		};
 		A5CFE6CA2B9CC89B00073B82 /* Controller */ = {
@@ -297,6 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A58DD18C2BA4863D000C71A7 /* NetworkManager.swift in Sources */,
 				A5CFE6A72B9C89C400073B82 /* AppDelegate.swift in Sources */,
 				A58DD16A2BA34B2A000C71A7 /* SaveSites.swift in Sources */,
 				A58DD1702BA34EBA000C71A7 /* ConnectorEntity.swift in Sources */,
@@ -306,7 +307,6 @@
 				A58DD1842BA3B88E000C71A7 /* SaveChargers.swift in Sources */,
 				A58DD16C2BA34E99000C71A7 /* SiteEntity.swift in Sources */,
 				A58DD17F2BA3B16A000C71A7 /* SiteAnnotation.swift in Sources */,
-				A5CFE6CE2B9F84E500073B82 /* NetworkManager.swift in Sources */,
 				A58DD17A2BA35996000C71A7 /* SiteDomain.swift in Sources */,
 				A58DD1652BA2F67D000C71A7 /* DataBaseManager.swift in Sources */,
 				A5CFE6BD2B9CA92600073B82 /* MapViewController.swift in Sources */,
